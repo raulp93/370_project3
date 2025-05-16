@@ -6,15 +6,15 @@ from sys import argv
 
 
 with open("key.txt", 'r') as infile:
-    secret = infile.readline().strip()
-totp = pyotp.TOTP(s=secret, name="preciadr@oregonstate.edu", issuer="BigTech")
+    secret = infile.readline().rstrip("\n")
+totp = pyotp.TOTP(s=secret, name="RaulP", issuer="BigTech")
 
 
 def no_params():
     current_otp = totp.at(time.time())
     print("Current TOTP is: ", current_otp)
     print("-" * 10)
-    print ("Syncronizing local clock with google")
+    print ("Syncronizing local timer with google's")
     print("Please be patient...")
     while current_otp == totp.now():
         pass
@@ -33,6 +33,7 @@ def get_otp():
 
 
 if __name__ == "__main__":
+
     if len(argv) > 1:
         if argv[1] == "--get-otp":
             get_otp()
