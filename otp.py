@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 import pyotp
-import qrcode
+import segno
 import time
-import qrcode.image.svg
 from sys import argv
-import webbrowser
+
 
 
 with open("key.txt", 'r') as infile:
@@ -39,12 +38,12 @@ def no_params():
 def generate_qr():
 
     uri = totp.provisioning_uri(name, issuer)
-    my_qr = qrcode.make(uri, image_factory=qrcode.image.svg.SvgFillImage)
     filename = 'otp-qr.svg'
-    my_qr.save(filename)
     print("Saved QR code image under file: ",filename )
-    print("Displaying QR code in web browser")
-    webbrowser.open(filename)
+    qr = segno.make(uri)
+    qr.save("qr-code.svg", scale=10, dark='black', light='white')
+    qr.terminal(compact=True)
+
 
 def get_otp():
     print(f"one time password: ", totp.now())
