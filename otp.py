@@ -4,7 +4,7 @@ import qrcode
 import time
 import qrcode.image.svg
 from sys import argv
-
+import webbrowser
 
 
 with open("key.txt", 'r') as infile:
@@ -43,7 +43,8 @@ def generate_qr():
     filename = 'otp-qr.svg'
     my_qr.save(filename)
     print("Saved QR code image under file: ",filename )
-
+    print("Displaying QR code in web browser")
+    webbrowser.open(filename)
 
 def get_otp():
     print(f"one time password: ", totp.now())
