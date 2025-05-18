@@ -27,7 +27,6 @@ def no_params():
 
     print("Syncronization complete")
     print("A valid OTP will be printed every 30 seconds.")
-    print(totp.interval)
     while True:
     
         print(totp.now())
