@@ -17,14 +17,13 @@ totp = pyotp.TOTP(s=secret, name=name, issuer=issuer)
 
 def no_params():
     current_otp = totp.at(time.time())
-    print(totp.interval)
     print("Current OTP is: ", current_otp)
     print("-" * 10)
     print ("Syncronizing local timer with Google")
     print("Please be patient...")
     
     while current_otp == totp.now():
-        pass
+        time.sleep(0.01)
 
     print("Syncronization complete")
     print("A valid OTP will be printed every 30 seconds.")
@@ -44,7 +43,7 @@ def generate_qr():
     my_qr = qrcode.make(uri, image_factory=qrcode.image.svg.SvgFillImage)
     filename = 'otp-qr.svg'
     my_qr.save(filename)
-    print("Saving QR code in file: ",filename )
+    print("Saved QR code image under file: ",filename )
 
 
 def get_otp():
